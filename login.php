@@ -1,7 +1,13 @@
 <?Php
     require_once 'config.php';
 
-    $loginUrl = $googleClient->createAuthUrl();
+    $loginURL = $googleClient->createAuthUrl();
+
+     // Check to see if user is logged in
+     if (isset($_SESSION['access_token']) ) {
+        header('Location: index.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +38,9 @@
                     </div>
                     <div class="from-control">
                         <button class="btn btn-primary">Log In</button>
-                        <button class=" btn btn-danger">Log In
-                            With
+                        <button onclick="window.location = '<?php echo $loginURL ?>'; " type="button"
+                            class=" btn btn-danger">Log
+                            In With
                             Google</button>
                     </div>
                 </form>
